@@ -61,19 +61,49 @@ public class WordManager {
         return "Você escolheu a letra '" + letter + "'";
     }
 
-    private boolean guessedLettersContainsCharacter(char character){
-        char [] guessedLettersCharArray;
+    private boolean guessedLettersContainsCharacter(char character) {
+        char[] guessedLettersCharArray;
         guessedLettersCharArray = new char[mGuessedLetters.size()];
-        for(int i = 0; i < guessedLettersCharArray.length; i++){
+        for (int i = 0; i < guessedLettersCharArray.length; i++) {
             guessedLettersCharArray[i] = mGuessedLetters.get(i);
         }
         return new String(guessedLettersCharArray).contains(Character.toString(character));
     }
 
-    public boolean hasCompletedTheWord(){
-        if(getMovieNameWithUnderscoredLetters().equals(mRandomMovie)){
-            return true;
+    public boolean hasCompletedTheWord() {
+        return getMovieNameWithUnderscoredLetters().equals(mRandomMovie);
+    }
+
+    public int getHowManyWrongLetters() {
+        int wrongLettersCount = mGuessedLetters.size();
+        String movieLetters = getMovieLettersWithoutDuplicates();
+
+        for (int i = 0; i < movieLetters.length(); i++) {
+            if (guessedLettersContainsCharacter(movieLetters.charAt(i))) {
+                wrongLettersCount--;
+            }
         }
-        return false;
+
+        return wrongLettersCount;
+    }
+
+    public boolean hasLostTheGame() {
+        return getHowManyWrongLetters() >= 10;
+    }
+
+    private String getMovieLettersWithoutDuplicates() {
+        String movieLetters = "";
+
+        for (int i = 0; i < mRandomMovie.length(); i++) {
+            if (!movieLetters.contains(Character.toString(mRandomMovie.charAt(i)))) {
+                movieLetters += mRandomMovie.charAt(i);
+            }
+        }
+
+        return movieLetters;
+    }
+
+    public String getMovieName(){
+        return mRandomMovie;
     }
 }
