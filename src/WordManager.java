@@ -10,14 +10,6 @@ public class WordManager {
     public WordManager() {
         setRandomMovie();
         mGuessedLetters = new ArrayList<>();
-        mGuessedLetters.add('a');
-        mGuessedLetters.add('e');
-        mGuessedLetters.add('i');
-        mGuessedLetters.add('o');
-        mGuessedLetters.add('u');
-        mGuessedLetters.add('t');
-
-        System.out.println(this.mRandomMovie);
     }
 
     private void setRandomMovie() {
@@ -68,6 +60,7 @@ public class WordManager {
         mGuessedLetters.add(letter);
         return "Você escolheu a letra '" + letter + "'";
     }
+
     private boolean guessedLettersContainsCharacter(char character){
         char [] guessedLettersCharArray;
         guessedLettersCharArray = new char[mGuessedLetters.size()];
@@ -75,5 +68,10 @@ public class WordManager {
             guessedLettersCharArray[i] = mGuessedLetters.get(i);
         }
         return new String(guessedLettersCharArray).contains(Character.toString(character));
+    }
+
+    public boolean hasCompletedTheWord(){
+        //TODO check if mRandomMovie letters match mGuessedLetters
+        return true || false;
     }
 }
