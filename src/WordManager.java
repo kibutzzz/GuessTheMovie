@@ -7,16 +7,22 @@ public class WordManager {
     private String mRandomMovie;
 
     public WordManager() {
+        setRandomMovie();
+        System.out.println(this.mRandomMovie);
+    }
+
+    private void setRandomMovie() {
         Scanner moviesFileScanner = this.makeNewFileScanner("movies.txt");
         ArrayList<String> moviesList = new ArrayList<>();
 
         while (moviesFileScanner.hasNextLine()) {
             moviesList.add(moviesFileScanner.nextLine());
         }
-
-        int randomIndex = (int) Math.random() * moviesList.size();
-
-        this.mRandomMovie = moviesList.get(randomIndex);
+        this.mRandomMovie = "";
+        while (this.mRandomMovie == "") {
+            int randomIndex = (int) (Math.random() * moviesList.size());
+            this.mRandomMovie = moviesList.get(randomIndex);
+        }
     }
 
     private Scanner makeNewFileScanner(String fileName) {
