@@ -71,7 +71,9 @@ public class WordManager {
     }
 
     public boolean hasCompletedTheWord(){
-        //TODO check if mRandomMovie letters match mGuessedLetters
-        return true || false;
+        if(getMovieNameWithUnderscoredLetters().equals(mRandomMovie)){
+            return true;
+        }
+        return false;
     }
 }

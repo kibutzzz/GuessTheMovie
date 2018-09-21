@@ -7,6 +7,7 @@ public class GuessTheMovie {
         System.out.println("Você está adivinhando: " + wordManager.getMovieNameWithUnderscoredLetters());
         Scanner scanner = new Scanner(System.in);
         while(!wordManager.hasCompletedTheWord()){
+            System.out.print("Diga uma letra: ");
             System.out.println(wordManager.takeAGuess(scanner.next().charAt(0)));
             System.out.println("Você está adivinhando: " + wordManager.getMovieNameWithUnderscoredLetters());
         }
