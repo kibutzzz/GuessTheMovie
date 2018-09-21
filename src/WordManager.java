@@ -5,11 +5,17 @@ import java.util.Scanner;
 
 public class WordManager {
     private String mRandomMovie;
-    private char[] mGuessedLetters = {'a','e','i','o','u'};
+    private ArrayList<Character> mGuessedLetters;
 
     public WordManager() {
         setRandomMovie();
-
+        mGuessedLetters = new ArrayList<>();
+        mGuessedLetters.add('a');
+        mGuessedLetters.add('e');
+        mGuessedLetters.add('i');
+        mGuessedLetters.add('o');
+        mGuessedLetters.add('u');
+        mGuessedLetters.add('t');
 
         System.out.println(this.mRandomMovie);
     }
@@ -25,7 +31,6 @@ public class WordManager {
         while (this.mRandomMovie.length() < 2) {
             int randomIndex = (int) (Math.random() * moviesList.size());
             this.mRandomMovie = moviesList.get(randomIndex);
-            int len = this.mRandomMovie.length();
         }
     }
 
@@ -47,12 +52,28 @@ public class WordManager {
         for (int i = 0; i < mRandomMovie.length(); i++) {
             if (mRandomMovie.charAt(i) == ' ') {
                 movie += " ";
-            } else if (new String(mGuessedLetters).contains(Character.toString(mRandomMovie.charAt(i)))) {
+            } else if (guessedLettersContainsCharacter(mRandomMovie.charAt(i))) {
                 movie += mRandomMovie.charAt(i);
             } else {
                 movie += "_";
             }
         }
         return movie;
+    }
+
+    public String takeAGuess(char letter) {
+        if (guessedLettersContainsCharacter(letter)) {
+            return "Você já escolheu essa letra";
+        }
+        mGuessedLetters.add(letter);
+        return "Você escolheu a letra '" + letter + "'";
+    }
+    private boolean guessedLettersContainsCharacter(char character){
+        char [] guessedLettersCharArray;
+        guessedLettersCharArray = new char[mGuessedLetters.size()];
+        for(int i = 0; i < guessedLettersCharArray.length; i++){
+            guessedLettersCharArray[i] = mGuessedLetters.get(i);
+        }
+        return new String(guessedLettersCharArray).contains(Character.toString(character));
     }
 }
